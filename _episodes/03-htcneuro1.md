@@ -271,7 +271,7 @@ queue jobdir data meta from queue_input.csv
  variable, `$(jobdir)`. This works like `$(Process)` did in the simple submit file
  above, except that rather than being a variable that is automatically generated
  by HTCondor, `$(jobdir)` is a variable defined within this submit file (on the
- *queue* line below).
+ **queue** line below).
 
 3. **requirements** will ensure that jobs are only sent to machines that meet the
    listed conditions. These conditions state that the machine should be running
