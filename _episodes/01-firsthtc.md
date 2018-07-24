@@ -220,9 +220,9 @@ $ condor_q
 ~~~
 
 
--- Schedd: training.osgconnect.net : <128.135.158.189:9618?... @ 07/24/18 14:15:12
+-- Schedd: training.osgconnect.net : <128.135.158.189:9618?... @ 07/24/18 14:14:42
 OWNER    BATCH_NAME            SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-cogsci50 CMD: simple.sh   7/23 14:15      _      _      4      4 1191.0-3
+cogsci50 CMD: simple.sh   7/23 14:14      _      _      4      4 1191.0-3
 
 4 jobs; 0 completed, 0 removed, 4 idle, 0 running, 0 held, 0 suspended
 ~~~
@@ -241,12 +241,12 @@ $ condor_q -nobatch
 ~~~
 
 
--- Schedd: training.osgconnect.net : <128.135.158.189:9618?... @ 07/24/18 14:16:03
+-- Schedd: training.osgconnect.net : <128.135.158.189:9618?... @ 07/24/18 14:15:03
  ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD
-1191.0   cogsci50        7/24 14:15   0+00:00:00 I  0    0.0 simple.sh 0
-1191.1   cogsci50        7/24 14:15   0+00:00:00 I  0    0.0 simple.sh 1
-1191.2   cogsci50        7/24 14:15   0+00:00:00 I  0    0.0 simple.sh 2
-1191.3   cogsci50        7/24 14:15   0+00:00:00 I  0    0.0 simple.sh 3
+1191.0   cogsci50        7/24 14:14   0+00:00:00 I  0    0.0 simple.sh 0
+1191.1   cogsci50        7/24 14:14   0+00:00:00 I  0    0.0 simple.sh 1
+1191.2   cogsci50        7/24 14:14   0+00:00:00 I  0    0.0 simple.sh 2
+1191.3   cogsci50        7/24 14:14   0+00:00:00 I  0    0.0 simple.sh 3
 
 4 jobs; 0 completed, 0 removed, 4 idle, 0 running, 0 held, 0 suspended
 ~~~
