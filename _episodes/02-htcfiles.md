@@ -240,7 +240,7 @@ know from the examination of our desired output files.
 So, you've had a crash course in submitting HTCondor jobs, 
 using just one of the ways to submit multiple jobs. For more 
 options to various HTCondor features, make sure to check out 
-the [HTCondor User Tutorial(https://agenda.hep.wisc.edu/event/1201/session/4/contribution/5/material/slides/1.pdf), 
+the [HTCondor User Tutorial](https://agenda.hep.wisc.edu/event/1201/session/4/contribution/5/material/slides/1.pdf), 
 [HTCondor Manual](http://research.cs.wisc.edu/htcondor/manual/current/index.html) 
 (which can be a bit daunting!), and 
 [OSG Connect Helpdesk](https://support.opensciencegrid.org/support/home), where you can 
