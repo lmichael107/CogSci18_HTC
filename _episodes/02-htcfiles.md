@@ -10,7 +10,9 @@ objectives:
 - "Consult the log file for first indications of problems and for future job resource requests."
 - "Understand the contents of a job's execution directory."
 keypoints:
-- "Forthcoming"
+- "HTCondor saves standard ('terminal') output to files for us, since we're not there to run commands, ourselves."
+- "The HTCondor log file is great for an initial error check, and for tuning future job resource requests."
+- "Each job run by HTCondor runs in a special directory, only with the files we've told HTCondor to transfer with `transfer_input_files` of the submit file"
 ---
 
 ### What Job Files Were Created?
