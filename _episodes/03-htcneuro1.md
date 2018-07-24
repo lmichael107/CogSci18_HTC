@@ -1,23 +1,17 @@
 ---
-title: "Working With Files and Directories"
-teaching: 40
+title: "Setting Up a Neuroscience HTC Workload"
+teaching: 10
 exercises: 0
 questions:
-- "How can I create, copy, and delete files and directories?"
-- "How can I edit files?"
+- "Chris to fill in?"
 objectives:
-- "Create a directory hierarchy that matches a given diagram."
-- "Create files in that hierarchy using an editor or by copying and renaming existing files."
-- "Delete specified files and/or directories."
+- "Chris to fill in."
+- "Chris to fill in."
 keypoints:
-- "`cp old new` copies a file."
-- "`mkdir path` creates a new directory."
-- "`mv old new` moves (renames) a file or directory."
-- "`rm path` removes (deletes) a file."
-- "Use of the Control key may be described in many ways, including `Ctrl-X`, `Control-X`, and `^X`."
-- "The shell does not have a trash bin: once something is deleted, it's really gone."
-- "Depending on the type of work you do, you may need a more powerful text editor than Nano."
+- "Chris to fill in."
 ---
+
+### Chris to Change All of the Below
 
 We now know how to explore files and directories,
 but how do we create them in the first place?
