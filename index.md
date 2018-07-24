@@ -3,25 +3,24 @@ layout: lesson
 root: .
 ---
 
-The Unix shell has been around longer than most of its users have been alive.
-It has survived so long because it's a power tool
-that allows people to do complex things with just a few keystrokes.
-More importantly,
-it helps them combine existing programs in new ways
-and automate repetitive tasks
-so they aren't typing the same things over and over again.
-Use of the shell is fundamental to using a wide range of other powerful tools 
-and computing resources (including "high-performance computing" supercomputers).
-These lessons will start you on a path towards using these resources effectively.
+This lesson guides you through the basics of submitting [HTCondor](https://research.cs.wisc.edu/htcondor/) 
+jobs on the [OSG Connect service](https://osgconnect.net/), including a 
+neuroscience-specific example of high-throughput computing from Chris Cox's own 
+research. HTCondor is software installed across the Open Science Grid (and many other 
+computing systems, "pools", or "clusters" around the world) that can schedule 
+large numbers of computing "jobs" to run across large numbers of disparate, heterogeneous 
+computers.
+
+While some of the neuroscience-specific example leverages Matlab versions available 
+through OSG Connect, the material about interacting with HTCondor would work on 
+any HTCondor computing system.
 
 > ## Prerequisites
 >
-> This lesson guides you through the basics of file systems and the
-> shell.  If you have stored files on a computer at all and recognize
-> the word “file” and either “directory” or “folder” (two common words
-> for the same thing), you're ready for this lesson.
->
-> If you're already comfortable manipulating files and directories,
-> searching for files with `grep` and `find`, and writing simple loops
-> and scripts, you probably want to explore the next lesson: [shell-extras](http://swcarpentry.github.io/shell-extras/).
-{: .prereq}
+> Prior experience with the Unix Shell (bash) is necessary, including skills 
+> covered in the morning portion of the tutorial, such as navigating a unix 
+> file system using absolute and relative paths, creating and editing text files 
+> on the command line, using wildcards, and creating shell scripts to automate 
+> the execution of several commands, in order. While there is some Matlab and Python 
+> code used in the neuroscience-specific example, you do not need to know how to 
+> program in these languages in order to submit the example jobs that use them.
