@@ -73,9 +73,8 @@ and close the file:
 # and server name that executed the script:
 echo "This is job $1, which ran as `whoami` on `hostname`." > my$1.out
 #
-# The below commands will print the path and contents of the execution 
+# The below commands will print the contents of the execution 
 # directory to standard output:
-pwd
 ls
 # END
 ~~~
