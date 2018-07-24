@@ -57,7 +57,7 @@ Unlike the data, however, the code will typically be small enough that it can be
 When working with Matlab code, there is an additional step.
 Matlab code must be "compiled" using `mcc` before it can be used on a compute cluster.
 This is simply because running compiled code against the Matlab Runtime Environment does not require a license instance, but running code interactively does.
-Unfortunately, OSG Connect does not have license to use `mcc`, the Matlab compiler. https://support.opensciencegrid.org/support/solutions/articles/5000660751-basics-of-compiled-matlab-applications-hello-world-example#compilation
+Unfortunately, [OSG Connect does not have a license to use `mcc`](https://crcox.github.io/CogSci18_HTC/03-htcneuro1/index.html), the Matlab compiler.
 However, your lab/univeristy/institution will very likely have a place to compile Matlab code (otherwise, you probably would not be developing in Matlab for your research!).
 
 With your data hosted and code prepared and on the submit node, all that is left is to write instructions for the individual jobs.
@@ -136,7 +136,7 @@ $ ls
 {: .output}
 
 ~~~
-$ ls ???/ | head
+$ ls ???/ shared/ | head
 ~~~
 {: .language-bash}
 
@@ -182,7 +182,6 @@ For sake of continuity, we are going to build off the "hello world" submit file 
 This file, `simple-HTC.sub`, is reproduced below for reference.
 
 ~~~
-
 # A simple HTCondor submit file:
 #
 executable = simple-job.sh
@@ -202,7 +201,6 @@ queue 4
 ~~~
 
 ~~~
-
 # A HTCondor submit file for running WISC MVPA:
 #
 # From the perspective of HTCondor, run_WISC_MVPA_OSG.sh is the thing that
@@ -289,7 +287,7 @@ With only small tweaks, this submit file should handle most needs.
 
 > ## Additional Submit File Variables of Interest
 >
-> While the full documentation of the submit file can be found here: (), there are a few variables we would like to highlight:
+> While the full documentation of submit file variables can be found [here](http://research.cs.wisc.edu/htcondor/manual/v8.7/labelmancondorsubmitCondorsubmit.html#x149-109000012), and some variations of the submit file are demonstrated [here](http://www.chtc.cs.wisc.edu/submit_variations.shtml), there are a few variables we would like to highlight:
 >
 {: .callout}
 
@@ -316,51 +314,5 @@ There is a problem!
 Use `condor_rm {osgconnect username}` to remove all jobs.
 Time to seek out the bug.
 
-> ## Copy a folder structure but not the files
->
-> You're starting a new experiment, and would like to duplicate the file
-> structure from your previous experiment without the data files so you can
-> add new data.
->
-> Assume that the file structure is in a folder called '2016-05-18-data',
-> which contains a `data` folder that in turn contains folders named `raw` and
-> `processed` that contain data files.  The goal is to copy the file structure
-> of the `2016-05-18-data` folder into a folder called `2016-05-20-data` and
-> remove the data files from the directory you just created.
->
-> Which of the following set of commands would achieve this objective?
-> What would the other commands do?
->
-> ~~~
-> $ cp -r 2016-05-18-data/ 2016-05-20-data/
-> $ rm 2016-05-20-data/raw/*
-> $ rm 2016-05-20-data/processed/*
-> ~~~
-> {: .language-bash}
-> ~~~
-> $ rm 2016-05-20-data/raw/*
-> $ rm 2016-05-20-data/processed/*
-> $ cp -r 2016-05-18-data/ 2016-5-20-data/
-> ~~~
-> {: .language-bash}
-> ~~~
-> $ cp -r 2016-05-18-data/ 2016-05-20-data/
-> $ rm -r -i 2016-05-20-data/
-> ~~~
-> {: .language-bash}
-> >
-> > ## Solution
-> > The first set of commands achieves this objective.
-> > First we have a recursive copy of a data folder.
-> > Then two `rm` commands which remove all files in the specified directories.
-> > The shell expands the '*' wild card to match all files and subdirectories.
-> >
-> > The second set of commands have the wrong order: 
-> > attempting to delete files which haven't yet been copied,
-> > followed by the recursive copy command which would copy them.
-> >
-> > The third set of commands would achieve the objective, but in a time-consuming way:
-> > the first command copies the directory recursively, but the second command deletes
-> > interactively, prompting for confirmation for each file and directory.
-> {: .solution}
-{: .challenge}
+While those jobs run, we will return to `submitJobs` and `stub.yaml` to get a better idea of how that works.
+
