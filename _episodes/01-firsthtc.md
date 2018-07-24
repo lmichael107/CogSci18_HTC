@@ -103,6 +103,7 @@ error = simple_$(Process).err
 # HTCondor will also store information about the steps it's taking for each job
 #  to a log file, if we tell it what that file should be named for each job:
 log = simple_$(Process).log
+should_transfer_files = YES
 #
 # We'll estimate relatively small amounts of memory and disk space,
 #  and one CPU core (the default), per job:
