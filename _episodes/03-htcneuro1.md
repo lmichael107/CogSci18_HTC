@@ -310,7 +310,7 @@ queue jobdir data meta from queue_input.csv
  will add 400 unique jobs to the queue.
 
 With only small tweaks, this submit file should handle most needs.
-The full documentation of submit file variables can be found [here](http://research.cs.wisc.edu/htcondor/manual/v8.7/labelmancondorsubmitCondorsubmit.html#x149-109000012), and some variations of the submit file are demonstrated [here](http://www.chtc.cs.wisc.edu/submit_variations.shtml).
+The full documentation of submit file variables can be found [here](http://research.cs.wisc.edu/htcondor/manual/current/condor_submit.html), a full discussion of the submit file can be found [here](http://research.cs.wisc.edu/htcondor/manual/current/2_5Submitting_Job.html), and some variations of the submit file are demonstrated [here](http://www.chtc.cs.wisc.edu/submit_variations.shtml).
 
 ## Launching the jobs
 
