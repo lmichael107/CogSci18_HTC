@@ -119,7 +119,7 @@ Note that the above file would really only need to be about 10 lines long, if we
 didn't want all of those comments in it (though they're important for helping to 
 explain this specific example).
 
-### Viewing the HTCondor Queue
+### Before You Submit: View the HTCondor Queue and Available Slots
 
 Before submitting our jobs to the HTCondor queue, let's first view the queue, 
 which will also confirm for us that HTCondor is running on this server:
@@ -188,11 +188,11 @@ OSG servers will come and go (depending on whether they're available for
 OSG-style backfill), and because an OSG submit point will purposefully 
 go out and find more available servers when they're needed for waiting jobs.
 
-Generally, you won't need to use `condor-status` unless you're trying to figure 
+Generally, you won't need to use `condor_status` unless you're trying to figure 
 out why your jobs aren't running (perhaps there are no slots that are 'big' 
-enough for the memory, disk, and cpu needs of your jobs. In that case, you 
+enough for the memory, disk, and cpu needs of your jobs). In that case, you 
 could start by consulting the HTCondor User Tutorial (linked above under "Background") 
-or get in touch with the OSG Connect team.
+for more `condor_status` tips, or get in touch with the OSG Connect team.
 
 ### Submit Your Jobs to the Queue
 
