@@ -3,9 +3,11 @@ title: "Run Your First HTC Jobs"
 teaching: 10
 exercises: 0
 questions:
-- "What is HTCondor, and how can I use it to submit and track sets of HTC jobs on the Open Science Grid?" 
+- "How do I submit and track sets of HTC jobs on the Open Science Grid?" 
 objectives:
 - "Understand basic HTCondor job submission and job tracking in the queue."
+keypoints:
+- "Placeholder."
 keypoints:
 - "HTCondor is software installed on our OSG Connect submit server that will run jobs on OSG execute servers."
 - "The user-created submit file describes the computational work ("jobs") that HTCondor should run."
