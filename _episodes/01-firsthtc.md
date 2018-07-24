@@ -13,7 +13,6 @@ keypoints:
 - "When HTCondor runs a single job, it will transfer files specified by the user to a special directory on an execute server."
 - "Outputs from jobs are transfered back to the submission location (or the `initialdir` of each job) on the submit server."
 ---
-
 ### Background
 
 The [Open Science Grid (OSG)](http://opensciencegrid.org/) is a collaboration of 
