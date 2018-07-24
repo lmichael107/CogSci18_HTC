@@ -72,13 +72,41 @@ C: [1,2]
 D: [3,4,5]
 EXPAND:
     - C
-    - D
 ~~~
 {: .language-yaml}
 
 **EXPAND** is a special field.
-It will "cross" the lists in C and D, creating one parameter file where B:1 and C:3, another where B:1 and C:4, and so on.
+Rather than both elements in C going into a single job as before, two parameter files will be written.
+In the first, C will be set to 1, and in the second C will be set to 2.
+
+~~~
+$ setupJobs stub.yaml
+$ find ./ -type f -name "params.json" -print | xargs grep "C\|D"
+~~~
+{: .language-bash}
+
+~~~
+./0/params.json:    "C": 1,
+./0/params.json:    "D": [3,4,5],
+./1/params.json:    "C": 2,
+./1/params.json:    "D": [3,4,5],
+~~~
+{: .output}
+
+Now, what would happen if we listed both C and D under expand?
 Let's run `setupJobs` again and just see how it goes:
+
+~~~
+# simple-stub.yaml
+A: 1
+B: 2
+C: [1,2]
+D: [3,4,5]
+EXPAND:
+    - C
+    - D
+~~~
+{: .language-yaml}
 
 ~~~
 $ setupJobs stub.yaml
@@ -102,10 +130,11 @@ $ find ./ -type f -name "params.json" -print | xargs grep "C\|D"
 ~~~
 {: .output}
 
+It "crossed" the lists in C and D, creating one parameter file where B:1 and C:3, another where B:1 and C:4, and so on.
 EXPAND can cross as many fields as you like.
 In this way, a single stub file can contain the instructions for building many parameter files.
 
-## COPY field
+## The COPY field
 There are two additional special fields that help with organizing a workload and managing file transfers.
 First, let's intoduce **COPY**.
 Try the following at the bash shell:
@@ -171,7 +200,7 @@ Notice that `ducks.txt` and `pigs.txt` are copied into different individual dire
 Since A is constant over jobs, that means every job needs `cows.txt`.
 The whole shared folder is sent to every job, so there is no reason to make 6 copies of `cows.txt`.
 
-## URLS field
+## The URLS field
 The final special field is **URLS**.
 This field controls what gets put into the `querey_input.csv` file.
 You'll notice that up until this point, this file was not being generated.
