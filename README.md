@@ -1,8 +1,8 @@
-shell-novice
+HTC Neuroscience on OSG
 ============
 
-First encounter with the Unix shell.  Lesson website is [here](http://swcarpentry.github.io/shell-novice/).
-
-Interested in contributing?  Please see our [Guidelines for Contributors](CONTRIBUTING.md).
-
-For tips on using these materials in a workshop, see our [Instructor's Guide](http://swcarpentry.github.io/shell-novice/instructors.html).  
+An introduction to submitting HTC work on the Open Science Grid via OSG Connect.
+Please see <https://lmichael107.github.io/CogSci18_HTC/> for a rendered version of this material,
+[the lesson template documentation][lesson-example]
+for instructions on formatting, building, and submitting material,
+or run `make` in this directory for a list of helpful commands. 
