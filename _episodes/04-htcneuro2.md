@@ -5,8 +5,7 @@ exercises: 0
 questions:
 - "How does setupJobs turn a stub.yaml into a populated directory tree?"
 objectives:
-- "Unpack the stub.yaml."
-- "Review the features of setupJobs."
+- "Understand how to use `setupJobs` with a YAML file to setup HTC workloads."
 keypoints:
 - "The setupJobs workflow is not project specific. The parameters listed in the stub file can be tailored to any needs."
 - "EXPAND, COPY, and URL fields in stub.yaml define 3 operations that can be applied to (combinations of) parameter fields listed elsewhere in the YAML file."
