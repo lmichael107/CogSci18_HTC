@@ -255,23 +255,22 @@ queue jobdir data meta from queue_input.csv
 
 ~~~
 
-1. From the perspective of HTCondor, run_WISC_MVPA_OSG.sh is the thing that
+1. From the perspective of HTCondor, `run_WISC_MVPA_OSG.sh` is the thing that
  needs to be executed. Even though you may think of our analysis code as "the
  executable", remember that a bit of setup needs to be done on the execute node
- before Matlab will run properly. So HTCondor will execute run_WISC_MVPA_OSG.sh
- as soon as it is ready, and that will in turn run "WISC_MVPA" (the name of
- which is passed as an argument. This is an argument to run_WISC_MVPA_OSG.sh,
- and so that bash script needs to be written so that it accepts the argument
- (which it is!)).
+ before Matlab will run properly. So HTCondor will execute `run_WISC_MVPA_OSG.sh`
+ as soon as it is ready, and that will in turn run `WISC_MVPA` (the name of
+ which is passed as an argument. This is an argument to `run_WISC_MVPA_OSG.sh`,
+ and so that bash script needs to be written so that it accepts the argument).
 
 2. This section is almost thesame as above, except that rather than naming each
  output file based on the process that generated it, we want files to be
- returned into the directory associated with that process. *initialdir* defines
+ returned into the directory associated with that process. **initialdir** defines
  where a particular job is being run from, and all files will be returned to
  that location. Notice that we that the value assigned to initialdir is a
- variable, $(jobdir). This works like $(Process) did in the simple submit file
+ variable, `$(jobdir)`. This works like `$(Process)` did in the simple submit file
  above, except that rather than being a variable that is automatically generated
- by HTCondor, $(jobdir) is a variable defined within this submit file (on the
+ by HTCondor, `$(jobdir)` is a variable defined within this submit file (on the
  *queue* line below).
 
 3. **requirements** will ensure that jobs are only sent to machines that meet the
@@ -285,25 +284,25 @@ queue jobdir data meta from queue_input.csv
    transfered to the execute node. Paths to files can either point to locations on
    the file system (using relative or absolute paths) or be an HTTP address.
    Notice here, too, that this argument is composed of several variables. These
-   are defined on the *queue* line below.
+   are defined on the **queue** line below.
 
    Because the ./shared directory is listed here, the releveant shared code
    will be sent along.
 
-   Because the $(jobdir) variable is listed here, the params.json file will
+   Because the `$(jobdir)` variable is listed here, the params.json file will
    containing job instructions will be sent along.
 
-   Because the $(data),and $(meta) variables are listed, the data and metadata
+   Because the `$(data)` and `$(meta)` variables are listed, the data and metadata
    will be downloaded from the specified HTTP addresses.
 
 6.  The queue command is the same as before, but rather than defining a number
  which specifies how many jobs to add to the queue, it will look in the
- queue_input.csv file for the information. Each row in queue_input.csv will
+ `queue_input.csv` file for the information. Each row in `queue_input.csv` will
  correspond to an entry in the queue, and the comma-separated elements of that
  row will be parsed into separate variables. The names of those variables are
  listed immediately after the queue command, in order (jobdir corresponds to
  column 1, data corresponds to column 2, etc). These variables can be used
- throughout the submit file. In effect, each row in queue_input.csv will
+ throughout the submit file. In effect, each row in `queue_input.csv` will
  correspond to a different version of the submit file, with the values from that
  row filled into the variable references throughout the file. These 400 submit
  files are never actuall created, however. HTCondor simply knows what to do, and
