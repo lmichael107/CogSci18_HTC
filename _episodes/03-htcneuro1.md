@@ -222,8 +222,6 @@ output = simple_$(Process).out
 error = simple_$(Process).err
 log = simple_$(Process).log
 #
-# We'll estimate relatively small amounts of memory and disk space,
-#  and one CPU core (the default), per job:
 request_cpus = 1
 request_memory = 1MB
 request_disk = 1MB
