@@ -119,6 +119,8 @@ Note that the above file would really only need to be about 10 lines long, if we
 didn't want all of those comments in it (though they're important for helping to 
 explain this specific example).
 
+You can confirm the creation of these files with `ls` and `cat` before moving on.
+
 ### Before You Submit: View the HTCondor Queue and Available Slots
 
 Before submitting our jobs to the HTCondor queue, let's first view the queue, 
