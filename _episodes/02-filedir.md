@@ -1,16 +1,29 @@
 ---
-title: "Reviewing Job Files"
-teaching: 10
-exercises: 0
+title: "Navigating Files and Directories"
+teaching: 30
+exercises: 10
 questions:
-- "How do I know that my jobs completed successfully?"
-- "What files were created by my jobs and what information will they contain?"
+- "How can I move around on my computer?"
+- "How can I see what files and directories I have?"
+- "How can I specify the location of a file or directory on my computer?"
 objectives:
-- "Examine job-created files."
-- "Consult the log file for first indications of problems and for future job resource requests."
-- "Understand the contents of a job's execution directory."
+- "Explain the similarities and differences between a file and a directory."
+- "Translate an absolute path into a relative path and vice versa."
+- "Construct absolute and relative paths that identify specific files and directories."
+- "Demonstrate the use of tab completion, and explain its advantages."
 keypoints:
-- "Forthcoming."
+- "The file system is responsible for managing information on the disk."
+- "Information is stored in files, which are stored in directories (folders)."
+- "Directories can also store other directories, which forms a directory tree."
+- "`cd path` changes the current working directory."
+- "`ls path` prints a listing of a specific file or directory; `ls` on its own lists the current working directory."
+- "`pwd` prints the user's current working directory."
+- "`/` on its own is the root directory of the whole file system."
+- "A relative path specifies a location starting from the current location."
+- "An absolute path specifies a location from the root of the file system."
+- "Directory names in a path are separated with `/` on Unix, but `\\` on Windows."
+- "`..` means 'the directory above the current one'; `.` on its own means 'the current directory'."
+- "Most files' names are `something.extension`. The extension isn't required, and doesn't guarantee anything, but is normally used to indicate the type of data in the file."
 ---
 
 The part of the operating system responsible for managing files and directories 
