@@ -18,9 +18,9 @@ Now that you have worked through one preset example, the goal of this section is
 
 ## The simplest example: No special fields
 
-The stub.yaml we worked with previous contained many parameters that were specific to the analysis we wanted to run and the WISC MVPA workflow.
-However, the stub.yaml + setupJobs workflow is not specific to WISC MVPA or those parameters.
-Let's boil this down to a simple example.
+The stub.yaml we worked with previously contained many parameters that were specific to the analysis we wanted to run and the WISC MVPA workflow.
+However, the YAML + `setupJobs` workflow is not specific to WISC MVPA or those parameters.
+Let's boil this down and consider the simplest example.
 
 ~~~
 # simple-stub.yaml
@@ -47,7 +47,6 @@ $ find ./ -type f -name "params.json" -print
 ~~~
 {: .output}
 
-`0/params.json`
 ~~~
 {
     "A": 1,
@@ -61,9 +60,9 @@ $ find ./ -type f -name "params.json" -print
 
 Nothing interesting here: we basically translated YAML to JSON and added one field that we can ignore.
 
-## EXPAND field
+## The EXPAND field
 
-Now, let's modify simple-stub.yaml file slightly:
+Now, let's modify `simple-stub.yaml` slightly:
 
 ~~~
 # simple-stub.yaml
@@ -79,7 +78,7 @@ EXPAND:
 
 **EXPAND** is a special field.
 It will "cross" the lists in C and D, creating one parameter file where B:1 and C:3, another where B:1 and C:4, and so on.
-Let's run setupJobs again and just see how it goes:
+Let's run `setupJobs` again and just see how it goes:
 
 ~~~
 $ setupJobs stub.yaml
@@ -116,7 +115,7 @@ $ touch cows.txt ducks.txt pigs.txt
 ~~~
 {: .language-bash}
 
-And now we will again slightly revise simple-stub.yaml
+And now we will again slightly revise `simple-stub.yaml`:
 
 ~~~
 # simple-stub.yaml
@@ -217,3 +216,9 @@ $ cat queue_input.csv
 The combination of `setupJobs` and the YAML file is a flexible and efficient way to compose multiple jobs by specifying a single file.
 Let's now open the stub.yaml file from the previous step.
 It should now be a bit more clear how we ended up with 400 jobs by parsing that single file.
+
+There are some features of `setupJobs` that were not reviewed today that my be of interest.
+One is that there is special functionality for constructing a hyperparameter search using the [Hyperband](https://homes.cs.washington.edu/~jamieson/hyperband.html) procedure ([paper](https://arxiv.org/abs/1603.06560)).
+The usage is exemplified in the `stub.yaml` file used to launch the workload in the previous step, and will very soon be documented at [github.com/crcox/InputSetup](https://github.com/crcox/InputSetup).
+Feel free to direct questions to [Chris Cox](mailto:chriscox@lsu.edu) in the meantime.
+
