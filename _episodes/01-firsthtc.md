@@ -55,10 +55,10 @@ $ cd FirstHTC
 {: .language-bash}
 
 Now, let's create a basic shell script as the executable that each job should run. 
-Use the `nano` text editor to create an empty file called `simple-job.sh`:
+Use the `nano` text editor to create an empty file called `simple.sh`:
 
 ~~~
-$ nano simple-job.sh
+$ nano simple.sh
 ~~~
 {: .language-bash}
 
@@ -93,7 +93,7 @@ contents:
 #  different jobs, and will be a unique integer number for each job, 
 #  starting with "0" and increasing for the number of jobs that we'll 'queue' 
 # at the end of this file.
-executable = simple-job.sh
+executable = simple.sh
 arguments = $(Process)
 #
 # Let's also use $(Process) to specify unique filenames for files that HTCondor 
@@ -221,7 +221,7 @@ $ condor_q
 
 -- Schedd: training.osgconnect.net : <128.135.158.189:9618?... @ 07/23/18 22:15:12
 OWNER    BATCH_NAME            SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-cogsci50 CMD: simple-job.sh   7/23 22:15      _      _      4      4 1191.0-3
+cogsci50 CMD: simple.sh   7/23 22:15      _      _      4      4 1191.0-3
 
 4 jobs; 0 completed, 0 removed, 4 idle, 0 running, 0 held, 0 suspended
 ~~~
@@ -242,10 +242,10 @@ $ condor_q -nobatch
 
 -- Schedd: training.osgconnect.net : <128.135.158.189:9618?... @ 07/23/18 22:22:03
  ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD
-1191.0   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 0
-1191.1   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 1
-1191.2   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 2
-1191.3   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 3
+1191.0   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple.sh 0
+1191.1   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple.sh 1
+1191.2   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple.sh 2
+1191.3   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple.sh 3
 
 4 jobs; 0 completed, 0 removed, 4 idle, 0 running, 0 held, 0 suspended
 ~~~
