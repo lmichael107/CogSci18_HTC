@@ -1,5 +1,5 @@
 ---
-title: "Working With Files and Directories"
+title: "Chris to Fill In"
 teaching: 25
 exercises: 10
 questions:
