@@ -1,6 +1,6 @@
 ---
 title: "Setting Up a Neuroscience HTC Workload"
-teaching: 10
+teaching: 20
 exercises: 0
 questions:
 - "How can a real fMRI analysis be setup and launched?"
@@ -222,8 +222,6 @@ output = simple_$(Process).out
 error = simple_$(Process).err
 log = simple_$(Process).log
 #
-# We'll estimate relatively small amounts of memory and disk space,
-#  and one CPU core (the default), per job:
 request_cpus = 1
 request_memory = 1MB
 request_disk = 1MB
@@ -234,93 +232,85 @@ queue 4
 ~~~
 # A HTCondor submit file for running WISC MVPA:
 #
-# From the perspective of HTCondor, run_WISC_MVPA_OSG.sh is the thing that
-# needs to be executed. Even though you may think of our analysis code as "the
-# executable", remember that a bit of setup needs to be done on the execute node
-# before Matlab will run properly. So HTCondor will execute run_WISC_MVPA_OSG.sh
-# as soon as it is ready, and that will in turn run "WISC_MVPA" (the name of
-# which is passed as an argument. This is an argument to run_WISC_MVPA_OSG.sh,
-# and so that bash script needs to be written so that it accepts the argument
-# (which it is!)).
 executable = ./shared/run_WISC_MVPA_OSG.sh
 arguments = "WISC_MVPA"
-#
-# This section is almost thesame as above, except that rather than naming each
-# output file based on the process that generated it, we want files to be
-# returned into the directory associated with that process. *initialdir* defines
-# where a particular job is being run from, and all files will be returned to
-# that location. Notice that we that the value assigned to initialdir is a
-# variable, $(jobdir). This works like $(Process) did in the simple submit file
-# above, except that rather than being a variable that is automatically generated
-# by HTCondor, $(jobdir) is a variable defined within this submit file (on the
-# *queue* line below).
+
 initialdir = $(jobdir)
 output = wisc_mvpa.out
 error = wisc_mvpa.err
 log = wisc_mvpa.log
-#
-# Same as above, except we are asking for a bit more memory and disk.
+
 request_cpus = 1
 request_memory = 2MB
 request_disk = 5MB
-#
-# From here on, things are new.
-# *requirements* will ensure that jobs are only sent to machines that meet the
-#   listed conditions. These conditions state that the machine should be running
-#   Red Hat Linux 6 or 7, have a 64bit CPU, and have the OSG Modules installed.
+
 requirements = (OSGVO_OS_STRING == "RHEL 6" || OSGVO_OS_STRING == "RHEL 7") && Arch == "X86_64" && HAS_MODULES == True
-#
-# *should_transfer_files* indicates (as the name implies) whether files should
-#   be sent between submit and execute nodes.
-# *when_to_transfer_output* indicates the conditions under which files
-#   generated on the execute node should be returned to the submit node. By setting
-#   this to "exit or evict", generated files will be returned when the job ends,
-#   fails, or is interrupted (because it ran too long or a process with higher
-#   priority booted it).
-#   NB: *ONLY* files in the working directory on the execute node will be
-#   transfered back to the submit node. Note also that a directory is not a file.
-#   Therefore, if you want to organize the outputs of you job into directories, you
-#   will need to add a line to your run_*.sh that will archive these directories
-#   into a tar.gz file (tar czf organized_results.tar.gz dir1 dir2 .. dirN).
-# *transfer_input_files* This is a list of files and directories to be
-#   transfered to the execute node. Paths to files can either point to locations on
-#   the file system (using relative or absolute paths) or be an HTTP address.
-#   Notice here, too, that this argument is composed of several variables. These
-#   are defined on the *queue* line below.
-#   Because the ./shared directory is listed here, the releveant shared code
-#   will be sent along.
-#   Because the $(jobdir) variable is listed here, the params.json file will
-#   containing job instructions will be sent along.
-#   Because the $(data),and $(meta) variables are listed, the data and metadata
-#   will be downloaded from the specified HTTP addresses.
+
 should_transfer_files = YES
-when_to_transfer_output = ON_EXIT_OR_EVICT
-transfer_input_files = ./shared,$(jobdir),$(data),$(meta)
-#
-# The queue command is the same as before, but rather than defining a number
-# which specifies how many jobs to add to the queue, it will look in the
-# queue_input.csv file for the information. Each row in queue_input.csv will
-# correspond to an entry in the queue, and the comma-separated elements of that
-# row will be parsed into separate variables. The names of those variables are
-# listed immediately after the queue command, in order (jobdir corresponds to
-# column 1, data corresponds to column 2, etc). These variables can be used
-# throughout the submit file. In effect, each row in queue_input.csv will
-# correspond to a different version of the submit file, with the values from that
-# row filled into the variable references throughout the file. These 400 submit
-# files are never actuall created, however. HTCondor simply knows what to do, and
-# will add 400 unique jobs to the queue.
+transfer_input_files = ./,../shared/,$(data),$(meta)
+
 queue jobdir data meta from queue_input.csv
 
 ~~~
 
-Although the commends may make this look a bit daunting, it actually only involves 4 more lines than the simplest possible HTCondor submit file.
-With only small tweaks, this submit file should handle most needs.
+1. From the perspective of HTCondor, `run_WISC_MVPA_OSG.sh` is the thing that
+ needs to be executed. Even though you may think of our analysis code as "the
+ executable", remember that a bit of setup needs to be done on the execute node
+ before Matlab will run properly. So HTCondor will execute `run_WISC_MVPA_OSG.sh`
+ as soon as it is ready, and that will in turn run `WISC_MVPA` (the name of
+ which is passed as an argument. This is an argument to `run_WISC_MVPA_OSG.sh`,
+ and so that bash script needs to be written so that it accepts the argument).
 
-> ## Additional Submit File Variables of Interest
->
-> While the full documentation of submit file variables can be found [here](http://research.cs.wisc.edu/htcondor/manual/v8.7/labelmancondorsubmitCondorsubmit.html#x149-109000012), and some variations of the submit file are demonstrated [here](http://www.chtc.cs.wisc.edu/submit_variations.shtml), there are a few variables we would like to highlight:
->
-{: .callout}
+2. This section is almost thesame as above, except that rather than naming each
+ output file based on the process that generated it, we want files to be
+ returned into the directory associated with that process. **initialdir** defines
+ where a particular job is being run from, and all files will be returned to
+ that location. Notice that we that the value assigned to initialdir is a
+ variable, `$(jobdir)`. This works like `$(Process)` did in the simple submit file
+ above, except that rather than being a variable that is automatically generated
+ by HTCondor, `$(jobdir)` is a variable defined within this submit file (on the
+ **queue** line below).
+
+3. **requirements** will ensure that jobs are only sent to machines that meet the
+   listed conditions. These conditions state that the machine should be running
+   Red Hat Linux 6 or 7, have a 64bit CPU, and have the OSG Modules installed.
+
+4. **should_transfer_files** indicates (as the name implies) whether files should
+   be sent between submit and execute nodes.
+
+5. **transfer_input_files** This is a list of files and directories to be
+   transfered to the execute node. Paths to files can either point to locations on
+   the file system (using relative or absolute paths) or be an HTTP address.
+   Notice here, too, that this argument is composed of several variables. These
+   are defined on the **queue** line below.
+
+   Because the ./ (current) directory is listed here, the params.json file will
+   containing job instructions will be sent along. Note that the current directory
+   is updated for each entry in the queue because the **initialdir** takes on the
+   value from the variable $(jobdir).
+
+   Because the ../shared/ directory is listed here, the releveant shared code
+   will be sent along. Because of the trailing '/', it will transfer the files
+   within the directory and not the directory itself.
+
+   Because the `$(data)` and `$(meta)` variables are listed, the data and metadata
+   will be downloaded from the specified HTTP addresses.
+
+6.  The queue command is the same as before, but rather than defining a number
+ which specifies how many jobs to add to the queue, it will look in the
+ `queue_input.csv` file for the information. Each row in `queue_input.csv` will
+ correspond to an entry in the queue, and the comma-separated elements of that
+ row will be parsed into separate variables. The names of those variables are
+ listed immediately after the queue command, in order (jobdir corresponds to
+ column 1, data corresponds to column 2, etc). These variables can be used
+ throughout the submit file. In effect, each row in `queue_input.csv` will
+ correspond to a different version of the submit file, with the values from that
+ row filled into the variable references throughout the file. These 400 submit
+ files are never actuall created, however. HTCondor simply knows what to do, and
+ will add 400 unique jobs to the queue.
+
+With only small tweaks, this submit file should handle most needs.
+The full documentation of submit file variables can be found [here](http://research.cs.wisc.edu/htcondor/manual/current/condor_submit.html), a full discussion of the submit file can be found [here](http://research.cs.wisc.edu/htcondor/manual/current/2_5Submitting_Job.html), and some variations of the submit file are demonstrated [here](http://www.chtc.cs.wisc.edu/submit_variations.shtml).
 
 ## Launching the jobs
 
