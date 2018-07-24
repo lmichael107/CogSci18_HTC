@@ -1,7 +1,7 @@
 ---
-title: "Chris to Fill In"
-teaching: 25
-exercises: 10
+title: "Working With Files and Directories"
+teaching: 40
+exercises: 0
 questions:
 - "How can I create, copy, and delete files and directories?"
 - "How can I edit files?"
