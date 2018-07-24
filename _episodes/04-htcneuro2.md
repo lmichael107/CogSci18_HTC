@@ -8,8 +8,8 @@ objectives:
 - "Unpack the stub.yaml."
 - "Review the features of setupJobs."
 keypoints:
-- "The setupJobs workflow can is not project specific. The parameters listed in the stub file can be tailored to any needs."
-- "EXPAND, COPY, and URL fields in stub.yaml define 3 operations that can be applied to (combinations of) parameter field listed elsewhere in the stub.yaml file."
+- "The setupJobs workflow is not project specific. The parameters listed in the stub file can be tailored to any needs."
+- "EXPAND, COPY, and URL fields in stub.yaml define 3 operations that can be applied to (combinations of) parameter fields listed elsewhere in the YAML file."
 ---
 
 ## Overview
