@@ -246,6 +246,6 @@ the [HTCondor User Tutorial](https://agenda.hep.wisc.edu/event/1201/session/4/co
 [OSG Connect Helpdesk](https://support.opensciencegrid.org/support/home), where you can 
 learn even more about:
 - options to commands like `condor_q`, `condor_status`, and `condor_history` for viewing completed jobs
-- submit file options, including other ways to communicate *many* job variations
+- submit file options, including other ways to communicate variations for *many* jobs
 - OSG Connect support for various pre-installes software that your job executables can run
 - OSG Connect support for large data (greater than ~100 MB input of 1GB output, per job)
