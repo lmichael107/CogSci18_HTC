@@ -242,10 +242,10 @@ $ condor_q -nobatch
 
 -- Schedd: training.osgconnect.net : <128.135.158.189:9618?... @ 07/23/18 22:22:03
  ID      OWNER            SUBMITTED     RUN_TIME ST PRI SIZE CMD
-1193.0   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 0
-1193.1   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 1
-1193.2   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 2
-1193.3   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 3
+1191.0   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 0
+1191.1   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 1
+1191.2   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 2
+1191.3   cogsci50        7/23 22:22   0+00:00:00 I  0    0.0 simple-job.sh 3
 
 4 jobs; 0 completed, 0 removed, 4 idle, 0 running, 0 held, 0 suspended
 ~~~
