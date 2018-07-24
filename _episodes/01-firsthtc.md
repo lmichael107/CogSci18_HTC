@@ -14,9 +14,9 @@ keypoints:
 - "Explain the steps in the shell's read-run-print cycle."
 - "Demonstrate the use of tab completion and explain its advantages."
 keypoints:
-- "A shell is a program whose primary purpose is to read commands and run other programs."
-- "The shell's main advantages are its high action-to-keystroke ratio, its support for automating repetitive tasks, and its capacity to access networked machines."
-- "The shell's main disadvantages are its primarily textual nature and how cryptic its commands and operation can be."
+- "HTCondor is software installed on our OSG Connect submit server that will run jobs on OSG execute servers."	 
+- "The user-created submit file describes the computational work ("jobs") that HTCondor should run."	 
+- "The 'condor_q' command allows the user to track various batches and individual jobs."
 ---
 ### Background
 
