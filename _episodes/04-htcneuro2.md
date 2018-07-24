@@ -262,18 +262,18 @@ normalize_wrt: training_set
 # Data and Metadata Paths
 # =======================
 data:
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp01.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp02.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp03.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp04.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp05.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp06.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp07.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp08.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp09.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp10.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp01.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp02.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp03.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp04.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp05.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp06.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp07.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp08.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp09.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp10.mat
 data_var: X
-metadata: http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/metadata_omegalesion.mat
+metadata: http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/metadata.mat
 metadata_var: metadata
 
 # Metadata Field References

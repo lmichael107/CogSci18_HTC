@@ -3,12 +3,11 @@ title: "Setting Up a Neuroscience HTC Workload"
 teaching: 10
 exercises: 0
 questions:
-- "Chris to fill in?"
+- "How can a real fMRI analysis be setup and launched?"
 objectives:
-- "Chris to fill in."
-- "Chris to fill in."
+- ""
 keypoints:
-- "Chris to fill in."
+- ""
 ---
 
 ## Applying HTC to solve a problem
@@ -33,7 +32,7 @@ In the example we will work through today, we are going to use a combination of 
 
 ### WISC MVPA
 
-*W*hole-brain *I*maging with *S*parse *C*orrelations *M*ulti-*V*ariate *P*attern *A*nalysis defines the four elements as:
+**W**hole-brain **I**maging with **S**parse **C**orrelations **M**ulti-**V**ariate **P**attern **A**nalysis defines the four elements as:
 
 1. An item-by-voxel matrix for each subject, each stored as a named variable in a Matlab `.mat` file.
 2. A structured array with a structure for each subject that contains information about condition labels, filters, and coordinates.
@@ -69,15 +68,22 @@ The results from each job will be returned into the directory corresponding to i
 
 But before diving into the functionality of `setupJobs`, let's setup and run an analysis!
 
+## Experiment overview
+
+For this example, we are going to preform the hyperparameter search step for sparse whole-brain classifiers learning to discriminate face from non-face trials in 10 subject.
+The data are a portion of what was published by [Lewis-Peacock and Postle, 2008](https://www.ncbi.nlm.nih.gov/pubmed/18753378).
+
 ## Setting up a set of jobs with `setupJobs`
 
 First, create a small directory tree for our demo and download some files:
 
 ~~~
-$ mkdir -p ~/WISC_MVPA/lasso/performance/{tune,permutations,final}
+$ mkdir -p ~/WISC_MVPA/lasso/performance/tune
 $ cd ~/WISC_MVPA/lasso/performance/tune
 $ wget http://proxy.chtc.wisc.edu/SQUID/crcox/CogSci2018_HTC/stub.yaml
 $ wget http://proxy.chtc.wisc.edu/SQUID/crcox/CogSci2018_HTC/stub_hb.yaml
+$ wget http://proxy.chtc.wisc.edu/SQUID/crcox/CogSci2018_HTC/WISC_MVPA
+$ wget http://proxy.chtc.wisc.edu/SQUID/crcox/CogSci2018_HTC/run_WISC_MVPA_OSG.sh
 ~~~
 {: .language-bash}
 
@@ -175,6 +181,31 @@ HTCondor will do the same with these URLs once it picks a location to deploy a p
 
 Everything that the job needs to run must be sent there, and HTCondor will send only what you tell it to send.
 This will become more clear once we begin updating our Submit File to pull all these pieces together.
+
+### What is `run_WISC_MVPA_OSG.sh`?
+
+This script will setup the Matlab environment on the execute node and launch the actual analysis.
+
+~~~
+#!/bin/bash
+# run_WISC_MVPA_OSG.sh
+
+set -e
+set -x
+
+EXECUTABLE=$1
+# Run the Matlab application
+# NB: This script needs to run to the end, even if there are errors.
+set +e
+source /cvmfs/oasis.opensciencegrid.org/osg/modules/lmod/current/init/bash
+set -e
+
+module load matlab/2015b
+
+chmod +x ${EXECUTABLE}
+eval "./${EXECUTABLE}"
+~~~
+{: .language-bash}
 
 ### Composing the Submit File
 
