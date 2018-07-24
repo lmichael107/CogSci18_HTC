@@ -1,6 +1,6 @@
 ---
 title: "Setting Up a Neuroscience HTC Workload"
-teaching: 10
+teaching: 20
 exercises: 0
 questions:
 - "How can a real fMRI analysis be setup and launched?"

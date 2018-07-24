@@ -1,6 +1,6 @@
 ---
 title: "Setting Up a Neuroscience HTC Workload 2: setupJobs and stub.yaml"
-teaching: 10
+teaching: 20
 exercises: 0
 questions:
 - "How does setupJobs turn a stub.yaml into a populated directory tree?"
