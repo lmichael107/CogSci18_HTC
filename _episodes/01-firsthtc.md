@@ -5,18 +5,11 @@ exercises: 0
 questions:
 - "How can I use HTCondor to submit and track HTC work on the Open Science Grid?"
 objectives:
-- "Explain how the shell relates to the keyboard, the screen, the operating system, and users' programs."
-- "Explain when and why command-line interfaces should be used instead of graphical interfaces."
-keypoints:
-- "Explain the steps in the shell's read-run-print cycle."
-- "Most commands take flags (options) which begin with a `-`."
-- "Identify the actual command, flags, and filenames in a command-line call."
-- "Explain the steps in the shell's read-run-print cycle."
-- "Demonstrate the use of tab completion and explain its advantages."
+- "Understand basic HTCondor job submission and job tracking in the queue."
 keypoints:
 - "HTCondor is software installed on our OSG Connect submit server that will run jobs on OSG execute servers."	 
-- "The user-created submit file describes the computational work ("jobs") that HTCondor should run."	 
-- "The 'condor_q' command allows the user to track various batches and individual jobs."
+- "The user-created submit file describes the computational work ('jobs') that HTCondor should run."	 
+- "The `condor_q` command allows the user to track various batches and individual jobs."
 ---
 ### Background
 
