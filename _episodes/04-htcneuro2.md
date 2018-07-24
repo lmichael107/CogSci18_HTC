@@ -245,6 +245,77 @@ The combination of `setupJobs` and the YAML file is a flexible and efficient way
 Let's now open the stub.yaml file from the previous step.
 It should now be a bit more clear how we ended up with 400 jobs by parsing that single file.
 
+~~~
+# LASSO
+# =====
+# Parameters
+# ----------
+regularization: lasso
+bias: 0
+lamSOS: 0
+lamL1: {args: [0, 0.2], distribution: uniform}
+HYPERBAND: {aggressiveness: 3, budget: 50, hyperparameters: [lamL1]}
+normalize_data: zscore
+normalize_target: none
+normalize_wrt: training_set
+
+# Data and Metadata Paths
+# =======================
+data:
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp01.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp02.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp03.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp04.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp05.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp06.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp07.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp08.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp09.mat
+  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/jlp10.mat
+data_var: X
+metadata: http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/FacePlaceObject/TR5/metadata_omegalesion.mat
+metadata_var: metadata
+
+# Metadata Field References
+# =========================
+cvscheme: 1
+cvholdout: [1,2,3,4,5,6,7,8,9,10]
+finalholdout: 0
+
+# Targets
+# -------
+target_label: faces
+target_type: category
+
+# Coordinates
+# -----------
+orientation: tlrc
+
+filters:
+  - rowfilter
+  - colfilter
+
+# WISC_MVPA Options
+# =======================
+subject_id_fmt: jlp%02d.mat
+executable: "/home/crcox/src/WISC_MVPA/bin/r2015b/WISC_MVPA"
+wrapper: "/home/crcox/src/WISC_MVPA/run_WISC_MVPA.sh"
+
+# condortools/setupJob Options
+# ============================
+EXPAND:
+  - data
+  - [cvholdout]
+COPY:
+  - executable
+  - wrapper
+URLS:
+  - data
+  - metadata
+
+~~~
+{: .language-yaml}
+
 There are some features of `setupJobs` that were not reviewed today that my be of interest.
 One is that there is special functionality for constructing a hyperparameter search using the [Hyperband](https://homes.cs.washington.edu/~jamieson/hyperband.html) procedure ([paper](https://arxiv.org/abs/1603.06560)).
 The usage is exemplified in the `stub.yaml` file used to launch the workload in the previous step, and will very soon be documented at [github.com/crcox/InputSetup](https://github.com/crcox/InputSetup).
