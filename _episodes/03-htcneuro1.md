@@ -234,21 +234,21 @@ queue 4
 #
 executable = ./shared/run_WISC_MVPA_OSG.sh
 arguments = "WISC_MVPA"
-#
+
 initialdir = $(jobdir)
 output = wisc_mvpa.out
 error = wisc_mvpa.err
 log = wisc_mvpa.log
-#
+
 request_cpus = 1
 request_memory = 2MB
 request_disk = 5MB
-#
+
 requirements = (OSGVO_OS_STRING == "RHEL 6" || OSGVO_OS_STRING == "RHEL 7") && Arch == "X86_64" && HAS_MODULES == True
-#
+
 should_transfer_files = YES
-transfer_input_files = ./shared,$(jobdir),$(data),$(meta)
-#
+transfer_input_files = ./,../shared/,$(data),$(meta)
+
 queue jobdir data meta from queue_input.csv
 
 ~~~
@@ -284,11 +284,14 @@ queue jobdir data meta from queue_input.csv
    Notice here, too, that this argument is composed of several variables. These
    are defined on the **queue** line below.
 
-   Because the ./shared directory is listed here, the releveant shared code
-   will be sent along.
+   Because the ./ (current) directory is listed here, the params.json file will
+   containing job instructions will be sent along. Note that the current directory
+   is updated for each entry in the queue because the **initialdir** takes on the
+   value from the variable $(jobdir).
 
-   Because the `$(jobdir)` variable is listed here, the params.json file will
-   containing job instructions will be sent along.
+   Because the ../shared/ directory is listed here, the releveant shared code
+   will be sent along. Because of the trailing '/', it will transfer the files
+   within the directory and not the directory itself.
 
    Because the `$(data)` and `$(meta)` variables are listed, the data and metadata
    will be downloaded from the specified HTTP addresses.
