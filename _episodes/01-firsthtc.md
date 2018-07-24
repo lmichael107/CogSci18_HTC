@@ -3,7 +3,7 @@ title: "Run Your First HTC Jobs"
 teaching: 10
 exercises: 0
 questions:
-- "What is a command shell and why would I use one?"
+- "How can I use HTCondor to submit and track HTC work on the Open Science Grid?"
 objectives:
 - "Explain how the shell relates to the keyboard, the screen, the operating system, and users' programs."
 - "Explain when and why command-line interfaces should be used instead of graphical interfaces."
