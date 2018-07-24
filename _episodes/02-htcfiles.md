@@ -144,7 +144,8 @@ update on the "Image size" (and MemoryUsage) of the job.
 We can also see that the "Job terminated" with a "Normal termination 
 (return value 0)", whereas a non-zero return value would indicate 
 that or executable exited with a failure. So, no indications of any 
-errors for this job!
+errors for this job! You can look at the log files of other jobs to 
+see that they also completed with a zero return value.
 
 **Testing for Resource Usage**
 Additionally, we can see that the bottom of the log file indicates 
@@ -158,7 +159,93 @@ will find big-enough slots to run on, sooner.
 
 ### Examining Job Outputs
 
-We can also view the standard output files and the output files created 
-for each job by the executable.
+We can also view the standard output files (`simple_*.out`) and the 
+output files created for each job by the executable (`my*.out`). Beyond the
+fact that the log files reported non-zero return values, the fact that 
+our `my*.out` files were created (and aren't empty) gives us assurance that 
+at least THAT part of our job likely did something useful.
 
-### Bonus: Viewing Recently-Completed Jobs with `condor_history`
+Since the contents are expected to be small (which we 
+know from `ls -lh`) and unique per job, we can use 
+the `cat` command with a wildcard to view their contents:
+
+~~~
+$ cat simple*.out
+~~~
+{: .language-bash}
+~~~
+_condor_stderr
+_condor_stdout
+condor_exec.exe
+my0.out
+_condor_stderr
+_condor_stdout
+condor_exec.exe
+my1.out
+_condor_stderr
+_condor_stdout
+condor_exec.exe
+my2.out
+_condor_stderr
+_condor_stdout
+condor_exec.exe
+my3.out
+~~~
+~~~
+$ cat my*.out
+~~~
+{: .language-bash}
+~~~
+This is job 0, which ran as osg on mwt2-c061.
+This is job 1, which ran as osg on uct2-c500.mwt2.org.
+This is job 2, which ran as osg on uct2-c502.mwt2.org.
+This is job 3, which ran as osg on n035.
+~~~
+
+Remember that our `simple.sh` script would print the results of 
+`ls` to the standard output, and would `echo` a statement about 
+each job to our `my*.out` files.
+
+**What do the contents of these output files tell you about 
+HTCondor's execution of each job and its files?**
+
+### Error Files
+
+If we had seen non-zero return values in any of the log files, 
+that would have been the first indication of a potential issue. 
+Additionally, some programs print error information to standard 
+output, but we checked those files, and all seems fine.
+
+Even so, it can be a good idea to check error files, especially
+if they have non-zero size in the `ls -lh` examination. If you 
+noticed non-zero sizes for any of your error files, examine their 
+contents. For example, some of your error files may include warnings 
+specific to OSG Connect's automatic setup for each job:
+
+~~~
+$ cat simple_0.err
+~~~
+{: .language-bash}
+~~~
+/cvmfs/connect.opensciencegrid.org/modules/lmod/init/bash: line 81: cogsci50: command not found
+~~~
+
+If you see the above line for any of your jobs, it shouldn't have 
+affected the execution of our simple.sh script, which you would already 
+know from the examination of our desired output files.
+
+
+### That's It!
+
+So, you've had a crash course in submitting HTCondor jobs, 
+using just one of the ways to submit multiple jobs. For more 
+options to various HTCondor features, make sure to check out 
+the [HTCondor User Tutorial(https://agenda.hep.wisc.edu/event/1201/session/4/contribution/5/material/slides/1.pdf), 
+[HTCondor Manual](http://research.cs.wisc.edu/htcondor/manual/current/index.html) 
+(which can be a bit daunting!), and 
+[OSG Connect Helpdesk](https://support.opensciencegrid.org/support/home), where you can 
+learn even more about:
+- options to commands like `condor_q`, `condor_status`, and `condor_history` for viewing completed jobs
+- submit file options, including other ways to communicate *many* job variations
+- OSG Connect support for various pre-installes software that your job executables can run
+- OSG Connect support for large data (greater than ~100 MB input of 1GB output, per job)
