@@ -3,17 +3,20 @@ title: "Run Your First HTC Jobs"
 teaching: 10
 exercises: 0
 questions:
-- "How do I submit and track sets of HTC jobs on the Open Science Grid?" 
+- "What is a command shell and why would I use one?"
 objectives:
-- "Understand basic HTCondor job submission and job tracking in the queue."
+- "Explain how the shell relates to the keyboard, the screen, the operating system, and users' programs."
+- "Explain when and why command-line interfaces should be used instead of graphical interfaces."
 keypoints:
-- "Placeholder."
+- "Explain the steps in the shell's read-run-print cycle."
+- "Most commands take flags (options) which begin with a `-`."
+- "Identify the actual command, flags, and filenames in a command-line call."
+- "Explain the steps in the shell's read-run-print cycle."
+- "Demonstrate the use of tab completion and explain its advantages."
 keypoints:
-- "HTCondor is software installed on our OSG Connect submit server that will run jobs on OSG execute servers."
-- "The user-created submit file describes the computational work ("jobs") that HTCondor should run."
-- "The 'condor_q' command allows the user to track various batches and individusl jobs."
-- "When HTCondor runs a single job, it will transfer files specified by the user to a special directory on an execute server."
-- "Outputs from jobs are transfered back to the submission location (or the `initialdir` of each job) on the submit server."
+- "A shell is a program whose primary purpose is to read commands and run other programs."
+- "The shell's main advantages are its high action-to-keystroke ratio, its support for automating repetitive tasks, and its capacity to access networked machines."
+- "The shell's main disadvantages are its primarily textual nature and how cryptic its commands and operation can be."
 ---
 ### Background
 
