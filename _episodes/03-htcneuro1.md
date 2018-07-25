@@ -80,6 +80,8 @@ First, create a small directory tree for our demo and download some files:
 ~~~
 $ cd ~/
 $ git clone https://github.com/crcox/InputSetup
+$ cd ~/InputSetup
+$ git checkout NoDAG
 $ mkdir -p ~/WISC_MVPA/lasso/performance/tune
 $ cd ~/WISC_MVPA/lasso/performance/tune
 $ wget http://proxy.chtc.wisc.edu/SQUID/crcox/CogSci2018_HTC/stub.yaml
@@ -100,7 +102,7 @@ Important for our demo is that `stub_hb.yaml` can be parsed without `numpy` or `
 Now, we will pass `stub_hb.yaml` to `setupJobs`.
 
 ~~~
-$ ~/InputSetup/setupJobs stub.yaml
+$ ~/InputSetup/setupJobs stub_hb.yaml
 ~~~
 {: .language-bash}
 
