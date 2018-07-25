@@ -62,7 +62,7 @@ However, your lab/univeristy/institution will very likely have a place to compil
 With your data hosted and code prepared and on the submit node, all that is left is to write instructions for the individual jobs.
 When running hundreds or thousands of jobs, you do not want to do this by hand.
 There are many possible solutions to this problem.
-We are going to use one that I developed and have been using for years: the `setupJobs` command in my `InputSetup` repository.
+We are going to use one that I developed and have been using for years: the `setupJobs` command in my [`InputSetup`](https://github.com/crcox/InputSetup) repository.
 It will translate a single YAML formatted text file (chosen because it allows comments and strives for human-readability) into as many json files as necessary, each within a numbered directory.
 The results from each job will be returned into the directory corresponding to its parameter file.
 
@@ -78,6 +78,8 @@ The data are a portion of what was published by [Lewis-Peacock and Postle, 2008]
 First, create a small directory tree for our demo and download some files:
 
 ~~~
+$ cd ~/
+$ git clone https://github.com/crcox/InputSetup
 $ mkdir -p ~/WISC_MVPA/lasso/performance/tune
 $ cd ~/WISC_MVPA/lasso/performance/tune
 $ wget http://proxy.chtc.wisc.edu/SQUID/crcox/CogSci2018_HTC/stub.yaml
@@ -98,7 +100,7 @@ Important for our demo is that `stub_hb.yaml` can be parsed without `numpy` or `
 Now, we will pass `stub_hb.yaml` to `setupJobs`.
 
 ~~~
-$ setupJobs stub.yaml
+$ ~/InputSetup/setupJobs stub.yaml
 ~~~
 {: .language-bash}
 
