@@ -36,7 +36,7 @@ Two of them are scalar values, and 2 are lists.
 Let's run `setupJobs`.
 
 ~~~
-$ setupJobs stub.yaml
+$ ~/InputSetup/setupJobs stub.yaml
 $ find ./ -type f -name "params.json" -print
 ~~~
 {: .language-bash}
@@ -79,7 +79,7 @@ Rather than both elements in C going into a single job as before, two parameter 
 In the first, C will be set to 1, and in the second C will be set to 2.
 
 ~~~
-$ setupJobs stub.yaml
+$ ~/InputSetup/setupJobs stub.yaml
 $ find ./ -type f -name "params.json" -print | xargs grep "C\|D"
 ~~~
 {: .language-bash}
@@ -108,7 +108,7 @@ EXPAND:
 {: .language-yaml}
 
 ~~~
-$ setupJobs stub.yaml
+$ ~/InputSetup/setupJobs stub.yaml
 $ find ./ -type f -name "params.json" -print | xargs grep "C\|D"
 ~~~
 {: .language-bash}
@@ -161,7 +161,7 @@ COPY:
 {: .language-yaml}
 
 ~~~
-$ setupJobs stub.yaml
+$ ~/InputSetup/setupJobs stub.yaml
 $ find . -mindepth 2 -type f -name "cows.txt" -print
 ~~~
 {: .language-bash}
@@ -224,7 +224,7 @@ URLS:
 {: .language-yaml}
 
 ~~~
-$ setupJobs stub.yaml
+$ ~/InputSetup/setupJobs stub.yaml
 $ cat queue_input.csv
 ~~~
 {: .language-bash}
