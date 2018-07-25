@@ -129,7 +129,7 @@ $ find ./ -type f -name "params.json" -print | xargs grep "C\|D"
 ~~~
 {: .output}
 
-It "crossed" the lists in C and D, creating one parameter file where B:1 and C:3, another where B:1 and C:4, and so on.
+It "crossed" the lists in C and D, creating one parameter file where C:1 and D:3, another where C:1 and D:4, and so on.
 EXPAND can cross as many fields as you like.
 In this way, a single stub file can contain the instructions for building many parameter files.
 
@@ -253,34 +253,65 @@ It should now be a bit more clear how we ended up with 400 jobs by parsing that 
 regularization: lasso
 bias: 0
 lamSOS: 0
-lamL1: {args: [0, 0.2], distribution: uniform}
-HYPERBAND: {aggressiveness: 3, budget: 50, hyperparameters: [lamL1]}
+lamL1:
+- [0.16687552227835278, 0.020069366363865006, 0.18605028276377383, 0.1160671419239185,
+  0.05027903676541319, 0.05301263021328249, 0.08898321480436269, 0.19149487996440576,
+  0.03863616962062233, 0.19844605125195458, 0.038222774885923606, 0.01134860758246039,
+  0.07207951935171564, 0.1569288549227326, 0.08437103366668688, 0.11532100132517042,
+  0.014342930023995604, 0.02219483305873733, 0.19340350195403588, 0.049748251283921574,
+  0.007778915353824867, 0.05497631187383272, 0.12640523573331897, 0.03180902389766489,
+  0.0087411996985588, 0.022514732785065862, 0.034995585070114334]
+- [0.18421609026156463, 0.033616575166403484, 0.13755222238717435, 0.009691174124414337,
+  0.14285117261650526, 0.15769277613300337, 0.0981156438116499, 0.017188754085093173,
+  0.032335241791300984, 0.15654268929018636, 0.17858265979155477, 0.10840231512873322]
+- [0.08507121250050183, 0.05178006666804946, 0.051063662121274604, 0.1150261844640534,
+  0.11917568063331192, 0.044331415903182014]
+- [0.16613800107047444, 0.10872062155741498, 0.0772650783211931, 0.007407881025943853]
 normalize_data: zscore
 normalize_target: none
 normalize_wrt: training_set
 
-# Data and Metadata Paths
-# =======================
+# HYPERBAND
+# =========
+BRACKETS:
+- n: [27, 9, 3, 1]
+  r: [1, 3, 9, 27]
+  s: 3
+- n: [12, 4, 1]
+  r: [5, 15, 45]
+  s: 2
+- n: [6, 2]
+  r: [16, 48]
+  s: 1
+- n: [4]
+  r: [50]
+  s: 0
+SearchWithHyperband: true
+
+# Data and Metadata
+# =================
 data:
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp01.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp02.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp03.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp04.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp05.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp06.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp07.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp08.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp09.mat
-  - http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp10.mat
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp01.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp02.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp03.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp04.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp05.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp06.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp07.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp08.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp09.mat"
+  - "http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/jlp10.mat"
 data_var: X
 metadata: http://proxy.chtc.wisc.edu/SQUID/crcox/MRI/CogSci2018/metadata.mat
 metadata_var: metadata
 
+
 # Metadata Field References
 # =========================
 cvscheme: 1
-cvholdout: [1,2,3,4,5,6,7,8,9,10]
+cvholdout: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 finalholdout: 0
+filters: [rowfilter, colfilter]
 
 # Targets
 # -------
@@ -291,33 +322,27 @@ target_type: category
 # -----------
 orientation: tlrc
 
-filters:
-  - rowfilter
-  - colfilter
-
 # WISC_MVPA Options
-# =======================
+# =================
 subject_id_fmt: jlp%02d.mat
-executable: "/home/crcox/src/WISC_MVPA/bin/r2015b/WISC_MVPA"
-wrapper: "/home/crcox/src/WISC_MVPA/run_WISC_MVPA.sh"
+executable: WISC_MVPA
+wrapper: run_WISC_MVPA_OSG.sh
 
-# condortools/setupJob Options
-# ============================
+# setupJob Special Fields
+# =======================
 EXPAND:
   - data
   - [cvholdout]
-COPY:
-  - executable
-  - wrapper
-URLS:
-  - data
-  - metadata
+  - [BRACKETS, lamL1]
+COPY: [executable, wrapper]
+URLS: [data, metadata]
 
 ~~~
 {: .language-yaml}
 
+### Addendum
 There are some features of `setupJobs` that were not reviewed today that my be of interest.
 One is that there is special functionality for constructing a hyperparameter search using the [Hyperband](https://homes.cs.washington.edu/~jamieson/hyperband.html) procedure ([paper](https://arxiv.org/abs/1603.06560)).
-The usage is exemplified in the `stub.yaml` file used to launch the workload in the previous step, and will very soon be documented at [github.com/crcox/InputSetup](https://github.com/crcox/InputSetup).
+The usage is exemplified in the `stub.yaml` file in the previous step (which is what `stub_hb.yaml was generated from), and will very soon be documented at [github.com/crcox/InputSetup](https://github.com/crcox/InputSetup).
 Feel free to direct questions to [Chris Cox](mailto:chriscox@lsu.edu) in the meantime.
 

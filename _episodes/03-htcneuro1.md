@@ -27,7 +27,7 @@ While all experiments vary in their details, they all tend to share a few elemen
 ### Defining a workflow
 
 In principle, each of the elements can take a variety of forms.
-In order to define a workflow, however, one must define a set of formats and standards so that the elements can be combined and processing steps and interopertate.
+In order to define a workflow, however, one must define a set of formats and standards so that the elements can be combined and processing steps can interopertate.
 In the example we will work through today, we are going to use a combination of elements that together comprise a WISC MVPA workflow.
 
 ### WISC MVPA
@@ -47,8 +47,8 @@ This means that the data in the item-by-voxel `.mat` files will have been fully 
 
 ### Analysis on OSG
 
-In order to run any analysis on OSG, the data and metadata must be hosted somewhere it can be accessed by HTCondor and transfered to the processes that need them.
-There are a multitude of compatible ways to host ones data to accomplish this goal, and the way you do this will depend on your lab/university/institution's infrastructure.
+In order to run an analysis on OSG, the data and metadata must be hosted somewhere it can be accessed by HTCondor and transfered to the processes that need them.
+There are a multitude of compatible ways to host one's data to accomplish this goal, and the way you do this will depend on your lab/university/institution's infrastructure.
 The data we will be accessing today is hosted on a server maintained by the Center for High Throughput Computing at UW-Madison.
 
 The analysis, of course, also requires that the code to be executed is accessible by HTCondor for the same reason.
@@ -56,7 +56,7 @@ Unlike the data, however, the code will typically be small enough that it can be
 When working with Matlab code, there is an additional step.
 Matlab code must be "compiled" using `mcc` before it can be used on a compute cluster.
 This is simply because running compiled code against the Matlab Runtime Environment does not require a license instance, but running code interactively does.
-Unfortunately, [OSG Connect does not have a license to use `mcc`](https://crcox.github.io/CogSci18_HTC/03-htcneuro1/index.html), the Matlab compiler.
+Unfortunately, [OSG Connect does not have a license to use `mcc`](https://support.opensciencegrid.org/support/solutions/articles/5000660751-basics-of-compiled-matlab-applications-hello-world-example#compilation), the Matlab compiler.
 However, your lab/univeristy/institution will very likely have a place to compile Matlab code (otherwise, you probably would not be developing in Matlab for your research!).
 
 With your data hosted and code prepared and on the submit node, all that is left is to write instructions for the individual jobs.
@@ -95,10 +95,10 @@ These can be installed in your home directory in a virtual environment on OSG Co
 The `stub_hb.yaml` is an intermediate file produced after a first round of processing `stub.yaml`, where some extra parameters are filled in.
 Important for our demo is that `stub_hb.yaml` can be parsed without `numpy` or `pandas`.
 
-Now, we will pass `stub_hb.yaml` to `setupJobs`, with a flag that will ensure that file paths are adapted for the execute node.
+Now, we will pass `stub_hb.yaml` to `setupJobs`.
 
 ~~~
-$ setupJobs -l stub.yaml
+$ setupJobs stub.yaml
 ~~~
 {: .language-bash}
 
@@ -134,7 +134,7 @@ $ ls
 017  041  065  089  113  137  161  185  209  233  257  281  305  329  353  377  queue_input.header
 018  042  066  090  114  138  162  186  210  234  258  282  306  330  354  378  shared
 019  043  067  091  115  139  163  187  211  235  259  283  307  331  355  379  stub.yaml
-020  044  068  092  116  140  164  188  212  236  260  284  308  332  356  380
+020  044  068  092  116  140  164  188  212  236  260  284  308  332  356  380  stub_hb.yaml
 021  045  069  093  117  141  165  189  213  237  261  285  309  333  357  381
 022  046  070  094  118  142  166  190  214  238  262  286  310  334  358  382
 023  047  071  095  119  143  167  191  215  239  263  287  311  335  359  383
@@ -174,6 +174,7 @@ These files are very important, but also very simple.
 ### What is `queue_input.csv`?
 
 This file contains a table, where each row corresponds to one of the 400 numbered directories, and each column (except the first) correponds to a file that needs to be transfered along with the job but does not exist in a numbered directory or the shared folder.
+The first column is the name of the job directory.
 Notice that these are full URLs.
 Each points to a publicly accessible location on the internet.
 If you were to copy one of those URLs into your web browser, it would begin downloading the file to your computer.
@@ -190,15 +191,12 @@ This script will setup the Matlab environment on the execute node and launch the
 #!/bin/bash
 # run_WISC_MVPA_OSG.sh
 
-set -e
 set -x
 
 EXECUTABLE=$1
 # Run the Matlab application
 # NB: This script needs to run to the end, even if there are errors.
-set +e
 source /cvmfs/oasis.opensciencegrid.org/osg/modules/lmod/current/init/bash
-set -e
 
 module load matlab/2015b
 
@@ -217,39 +215,39 @@ This file, `simple-HTC.sub`, is reproduced below for reference.
 #
 executable = simple-job.sh
 arguments = $(Process)
-#
+
 output = simple_$(Process).out
 error = simple_$(Process).err
 log = simple_$(Process).log
-#
+
 request_cpus = 1
 request_memory = 1MB
 request_disk = 1MB
-#
+
 queue 4
 ~~~
 
 ~~~
 # A HTCondor submit file for running WISC MVPA:
 #
-executable = ./shared/run_WISC_MVPA_OSG.sh
+executable = ./shared/run_WISC_MVPA_OSG.sh           # 1
 arguments = "WISC_MVPA"
 
-initialdir = $(jobdir)
+initialdir = $(jobdir)                               # 2
 output = wisc_mvpa.out
 error = wisc_mvpa.err
 log = wisc_mvpa.log
 
-request_cpus = 1
+request_cpus = 1                                     # 3
 request_memory = 2MB
 request_disk = 5MB
-
+                                                     # 4
 requirements = (OSGVO_OS_STRING == "RHEL 6" || OSGVO_OS_STRING == "RHEL 7") && Arch == "X86_64" && HAS_MODULES == True
 
-should_transfer_files = YES
+should_transfer_files = YES                          # 5
 transfer_input_files = ./,../shared/,$(data),$(meta)
 
-queue jobdir data meta from queue_input.csv
+queue jobdir data meta from queue_input.csv          # 6
 
 ~~~
 
@@ -261,7 +259,7 @@ queue jobdir data meta from queue_input.csv
  which is passed as an argument. This is an argument to `run_WISC_MVPA_OSG.sh`,
  and so that bash script needs to be written so that it accepts the argument).
 
-2. This section is almost thesame as above, except that rather than naming each
+2. This section is almost the same as above, except that rather than naming each
  output file based on the process that generated it, we want files to be
  returned into the directory associated with that process. **initialdir** defines
  where a particular job is being run from, and all files will be returned to
